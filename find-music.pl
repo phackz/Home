@@ -8,6 +8,13 @@ use File::Path;
 use File::Copy;
 use Cwd;
 
+# Things to do:
+# - Create logging of what's sync'd to were
+# - Write get opts to pick directory's from command line to sync, switch for 
+#   movies, music, resume's etc. add overrides to default directories.
+# - Auto grab where drive is mounted instead of  
+
+
 my $home1 = "/home/pman";
 my $home2 = "/home/rpothier";
 my $home_music_dir;
@@ -44,7 +51,6 @@ foreach my $file (@files_local){
 say "local: $local_count";
 say "remote: $remote_count";
 
-
 sub grab_files {
   my $dir = shift;
   my @files_temp;
@@ -59,3 +65,8 @@ sub grab_files {
   return(@return);
 }
 
+sub check_differences {
+  my $local = shift;
+  my $remote = shift;
+
+}
