@@ -31,20 +31,31 @@ if ( ! -d $remote_drive ) {
 my @files_local = grab_files($home_music_dir);
 my @files_remote = grab_files($remote_drive);
 
+my $remote_count = 0;
+my $local_count = 0;
+
 foreach my $file (@files_remote){
-  say $file;     
+  $remote_count += 1 ;     
 }
+foreach my $file (@files_local){
+  $local_count += 1;
+}
+
+say "local: $local_count";
+say "remote: $remote_count";
+
 
 sub grab_files {
   my $dir = shift;
-  my @return;
+  my @files_temp;
   my @files = File::Find::Rule->file()
 			      ->name( qr/\.(mp3|wma|ogg|wav|jpg)$/ )	
  			      ->in($dir);
   foreach my $file (@files) {
     $file =~ s/$dir\///;
-    push(@return, $file);
+    push(@files_temp, $file);
   }
+  my @return = sort{ lc($a) cmp lc($b) } @files_temp;
   return(@return);
 }
 
